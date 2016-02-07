@@ -1,0 +1,23 @@
+{%extends "base.html" %}
+
+{% block content %}
+
+    <div class="row" id="contacts-content">
+
+            <div class="col-xs-4">
+                <p><span>Name</span> {{info.name}}</p>
+                <p><span>Last name</span> {{info.last_name}}</p>
+                <p><span>Date of birth</span> {{info.date_of_birth}}</p>
+                <p><span>Bio:</span> {{info.bio|linebreaks}}</p>
+
+            </div>
+            <div class="col-xs-4">
+                <p><span>Contacts</span> </p>
+                <p><span>Email:</span> {{info.email}}</p>
+                <p><span>Jabber:</span> {{info.jabber}}</p>
+                <p><span>Skype:</span> {{info.skype}}</p>
+                <p><span>Other contacts:</span> {{info.other_contacts|linebreaks}}</p>
+            </div>
+    </div>
+
+{% endblock %}

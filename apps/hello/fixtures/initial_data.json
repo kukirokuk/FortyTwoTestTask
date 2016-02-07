@@ -1,0 +1,34 @@
+[
+{
+    "pk": 1, 
+    "model": "hello.contact", 
+    "fields": {
+        "bio": "Born in Kovel. Got a master degree in Lviv  University Lviv Polytechnic in field of Engineering Mechanics. Worked at Lviv \"Polymer-Electron\" plant and Tyco Lviv department at the position of mechanical engineer.\r\nFor now I am entrepreneur and Python/Django beginner. ", 
+        "last_name": "Vinnichuk", 
+        "name": "Oleksandr", 
+        "date_of_birth": "1984-06-13", 
+        "skype": "prof.zojdberg", 
+        "jabber": "kukirokuk@khavr.com", 
+        "email": "oleksanr.v@gmail.com",
+        "other_contacts": "mobile: +380664444032"
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2015-12-30T19:54:07.036Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$Iwl3XpHNIMVN$V+DmqoeYuad/v1TP/hWpjZoeEibVAB44IdRsTftqqoE=", 
+        "email": "oleksanr.v@gmail.com", 
+        "date_joined": "2015-12-30T19:54:07.036Z"
+    }
+}
+]

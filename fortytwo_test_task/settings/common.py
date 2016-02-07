@@ -41,8 +41,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # my apps
     'apps.hello',
+    # installed apps
+    'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,7 +67,7 @@ WSGI_APPLICATION = 'fortytwo_test_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db4.sqlite3'),
     }
 }
 
@@ -127,3 +129,8 @@ TEMPLATE_DIRS = (
 
 # Turn off south during test
 SOUTH_TESTS_MIGRATE = False
+
+# Setup fixtures dir
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, 'hello/fixtures'),
+)

@@ -3,20 +3,40 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}{% endblock title %}Site Name</title>
+        {% block title %}
+        <title>42 Coffee Cups Test Assignment
+        </title>
+        {% endblock title %}
 
         <meta http-equiv="X-UA-Compatible" content="chrome=IE7" />
 
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
+        <!--Styles-->
         <link rel="stylesheet" href="{% static 'css/screen.css' %}" media="screen, projection"/>
+         <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
 
         {% block extra_head %}{% endblock extra_head %}
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+
+        <!--Main Container -->
+        <div class="container">
+        <div id="ajaxwrapper">
+        {% block header %}
+        <div class="page-header">
+            <h1>42 Coffee Cups Test Assignment</h1>
+        </div>
+        {% endblock %}
         {% block content %}{% endblock content %}
+        </div>
+     <!-- Javascripts Section -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     </body>
+
 </html>
