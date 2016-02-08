@@ -24,3 +24,19 @@ class RequestPageTest(TestCase):
 
         # check model instance rendered
         self.assertIn(req.path, response.content)
+
+    def test_last_ten_requests(self):
+        '''
+         Check page shows last 10 requests
+        '''
+        url = reverse('requests')
+
+        # creating 10 requests
+        for i in range(10):
+            request = self.client.get(url)
+
+        test_requests = list(SavedRequest.objects.all().order_by('-id')[:10])
+
+        # check if last requests appear at the page
+        for t_request in test_requests:
+            self.assertIn(t_request, request.context['requests'])
