@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}<title id="title"> 0 new requests</title>{% endblock title %}
+
+{% block content %}
+
+<div id="request" >
+   <div class="row">
+       <p class="lead"><span id="req">0</span> new of <strong id="overall">{{title}}</strong> requests</p>
+       <ul id="httprequests">
+   </div>
+
+   <table class="table table-hover table-striped">  
+        <thead>  
+            <tr>  
+                <th>id</th>  
+                <th>host</th>
+                <th>path</th>
+                <th>method</th>
+
+            </tr>  
+        </thead>  
+        <tbody> 
+        {%for item in requests%} 
+            <tr>  
+                <td>{{item.id}}</td>  
+                <td>{{item.host}}</td>
+                <td>{{item.path}}</td>
+                <td>{{item.method}}</td>
+            </tr>
+        {%endfor%}
+        </tbody>  
+    </table>  
+    <a href="/">back</a>
+</div>
+
+{% endblock %}

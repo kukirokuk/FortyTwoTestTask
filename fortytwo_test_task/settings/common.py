@@ -43,11 +43,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # my apps
     'apps.hello',
+    'apps.request',
     # installed apps
     'south',
 )
 
 MIDDLEWARE_CLASSES = (
+    'apps.request.middleware.RequestMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
