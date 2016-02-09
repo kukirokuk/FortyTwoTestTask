@@ -6,6 +6,7 @@ from django.http import HttpRequest
 
 from apps.hello.views import home
 from apps.hello.models import Contact
+from apps.hello.forms import ContactForm
 
 
 class HomePageTest(TestCase):
@@ -207,8 +208,6 @@ class ContactEditFormTest(TestCase):
         '''
          Check ajax
         '''
-        # Contact.objects.all().delete()
-
         # login as admin to access student edit form
         self.client.login(username='admin', password='admin')
 

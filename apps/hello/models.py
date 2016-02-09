@@ -1,4 +1,5 @@
 from django.db import models
+from django_resized import ResizedImageField
 
 
 # Person contacts model
@@ -12,6 +13,8 @@ class Contact(models.Model):
     skype = models.CharField(max_length=40)
     other_contacts = models.TextField(blank=True)
     photo = models.ImageField(upload_to='photo/', blank=True, null=True)
+    image = ResizedImageField(size=[200, 200], upload_to='photo/', blank=True,
+                              null=True)
 
     def __unicode__(self):
         return 'Contact: %s' % self.name

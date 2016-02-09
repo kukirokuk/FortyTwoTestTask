@@ -7,10 +7,12 @@ from apps.hello.models import Contact
 from .forms import ContactForm
 import json
 
+
 # home page view
 def home(request):
     context = Contact.objects.first()
     return render(request, 'home.html', {'info': context})
+
 
 # edit form view
 @login_required(login_url='/login/')

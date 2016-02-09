@@ -14,7 +14,7 @@ class ContactForm(forms.ModelForm):
         model = Contact
         fields = ['name', 'last_name', 'date_of_birth', 'bio',
                   'other_contacts', 'email', 'jabber',
-                  'skype', 'other_contacts']
+                  'skype', 'other_contacts', 'image']
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'class': 'datepicker'}),
         }
