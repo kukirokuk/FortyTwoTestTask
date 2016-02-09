@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="row" id="login-header">
+    <h3>Login for profile data edit</h3>
+</div>
+    <form class="form-horizontal" method="post" action="{% url "django.contrib.auth.views.login" %}">
+    {% csrf_token %}
+    <div class="row" id="contacts-form">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <label class="col-md-4 control-label">
+                {{ form.username.label_tag }}
+                </label>
+                <div class="col-md-8">
+                    {{ form.username }}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="form-group">
+                <label class="col-md-4 control-label">
+                {{ form.password.label_tag }}
+                </label>
+                <div class="col-md-8">
+                    {{ form.password }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <button type="submit" class=" btn btn-success" id="login-button">Login</button>
+                
+
+            </div>
+        </div>
+    </form>
+        {% if form.errors %}
+        <p>Input correct login and password.</p>
+        {% endif %}
+
+{% endblock %}
+

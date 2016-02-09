@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+    <div id="success"></div>
+      <div class="ajaxwrapper">
+        <form class="form-horizontal" id="contact_form"\
+         action="{% url 'user_detail' %}" 
+               enctype="multipart/form-data" method="POST">
+               {% csrf_token %}
+          <div class="row" id="contacts-form">
+
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Name</label>
+                    <div class="col-md-8">
+                        {{ form.name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Last name</label>
+                    <div class="col-md-8">
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Date of birth:</label>
+                    <div class="col-md-8">
+                        {{ form.date_of_birth }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Photo:</label>
+                    <div class="col-md-8">
+{#                      <input id="id_photo" name="id_photo" class="input-file" type="file"> #}
+                    {{ form.image}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                    {% if form.image.value %}
+                        <img id="pho" class="pull-left" src="{{ MEDIA_URL }}{{ form.image.value }}" alt="Photo " width="200px"/>
+                    {% else %}
+                    Add your photo
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Email</label>
+                    <div class="col-md-8">
+                        {{ form.email }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Jabber</label>
+                    <div class="col-md-8">
+                        {{ form.jabber }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Skype</label>
+                    <div class="col-md-8">
+                        {{ form.skype }}
+                    </div>
+                </div>
+
+                 <div class="form-group" id="other">
+                    <label  "control-label">Other contacts:</label>
+                        
+                </div>
+                <div>
+                     {{ form.other_contacts }}
+                </div>
+
+                <div class="form-group" id="other">
+                    <label "control-label">Bio:</label>
+                        
+                </div>
+                <div>
+                    {{ form.bio }}
+                </div>
+
+            </div>
+          </div>
+            <div class="row">
+                <span id="ajax-progress-indicator">Saving...</span>
+                <span id="ajax-success-indicator">Changes have been saved</span>
+            </div>
+            <div class="row" id="contacts-buttons">
+                <div class="col-xs-2">
+                    <button type="submit" id="send_button">Save </button>
+                </div>
+                <div class="col-xs-10">
+                    {{form.button}}
+                </div>
+            </div>
+        </form>
+
+</div>
+    <div class="row" id="requests">
+        <a href="{% url 'requests' %}">requests</a>
+    </div>
+</div>
+{% endblock %}
+
