@@ -8,8 +8,17 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^$', 'apps.hello.views.home', name='home'),
+
     url(r'^requests/$', 'apps.request.views.request_store',
         name='requests'),
+
+    url(r'^edit/$', 'apps.hello.views.edit', name='user_detail'),
+
+    url(r'^login/$', 'django.contrib.auth.views.login',
+        {'template_name': 'login.html'}, name='login'),
+
+    url(r'^logout/$', 'django.contrib.auth.views.logout',
+        {'next_page': '/'}, name='logout'),
 
     url(r'^admin/', include(admin.site.urls)),
 )

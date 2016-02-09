@@ -11,6 +11,7 @@ class Contact(models.Model):
     jabber = models.CharField(max_length=40)
     skype = models.CharField(max_length=40)
     other_contacts = models.TextField(blank=True)
+    photo = models.ImageField(upload_to='photo/', blank=True, null=True)
 
     def __unicode__(self):
         return 'Contact: %s' % self.name

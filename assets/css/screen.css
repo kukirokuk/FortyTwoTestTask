@@ -4,4 +4,26 @@
  #requests {
     border-top: 1px solid #dddddd;
     padding-top: 10px;
-} 
+}
+#login-header {
+    padding-left: 50px;
+    padding-bottom: 30px;
+}
+#login-button {
+    margin-left: 100px;
+}
+#ajax-progress-indicator {
+    display: none;
+    position: absolute;
+}
+#ajax-success-indicator {
+    display: none;
+    position: absolute;
+}
+#send_button{
+    margin-bottom: 10px;
+}
+#contacts-buttons{
+    position: relative;
+    padding-top: 30px;
+}
