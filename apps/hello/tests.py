@@ -3,6 +3,7 @@
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from django.http import HttpRequest
+from django.template import Template, Context
 
 from apps.hello.views import home
 from apps.hello.models import Contact
@@ -141,7 +142,6 @@ class ContactModelTest(TestCase):
 class ContactEditFormTest(TestCase):
 
     def setUp(self):
-        # Contact.objects.all().delete()
         self.url = reverse('user_detail')
         self.data = {
             'name': 'Pablo',
@@ -277,3 +277,33 @@ class ContactEditFormTest(TestCase):
         # test widget appear at form page
         response = self.client.get(reverse('user_detail'))
         self.assertIn('<a href="/">Cancel</a>', response.content)
+
+
+class TemplateTagTest(TestCase):
+
+    def setUp(self):
+        self.template = Template("{% load edit_object %}{% edit_link info%}")
+        self.link = u'/admin/hello/contact/1/'
+
+    def test_tag(self):
+        '''
+        Check if templatetag shows up at the page
+        '''
+        person = Contact.objects.get()
+        rendered = self.template.render(Context({'info': person}))
+        self.assertEqual(self.link, rendered)
+
+    def test_no_db_enries(self):
+        '''
+        Check there is no errors if db is empty
+        '''
+        Contact.objects.all().delete()
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_for_anonymous_user(self):
+        '''
+        Check that there is no link when user is anonymous
+        '''
+        response = self.client.get(reverse('home'))
+        self.assertFalse(self.link in response.content)

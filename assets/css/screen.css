@@ -27,3 +27,8 @@
     position: relative;
     padding-top: 30px;
 }
+#inline{
+    display: inline-block;
+    font-weight: bold;
+    white-space: nowrap;
+}
