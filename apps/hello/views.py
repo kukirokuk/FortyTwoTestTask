@@ -8,15 +8,19 @@ from .forms import ContactForm
 import json
 
 
-# home page view
 def home(request):
+    """
+    Home page view
+    """
     context = Contact.objects.first()
     return render(request, 'home.html', {'info': context})
 
 
-# edit form view
 @login_required(login_url='/login/')
 def edit(request, template_name="edit.html"):
+    """
+    Edit form view
+    """
     info = Contact.objects.get()
     if request.method == 'POST':
         form = ContactForm(request.POST, request.FILES, instance=info)

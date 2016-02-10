@@ -266,7 +266,7 @@ class ContactEditFormTest(TestCase):
             'jabber': person.jabber})
         self.assertFalse(form.is_valid())
 
-    def test_wiget(self):
+    def test_widget(self):
         '''
          Check widget appear at contact edit page
         '''
