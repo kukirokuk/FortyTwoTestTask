@@ -4,6 +4,9 @@ from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from django.http import HttpRequest
 from django.template import Template, Context
+from django.core.management import call_command
+from django.utils.six import StringIO
+
 
 from apps.hello.views import home
 from apps.hello.models import Contact
@@ -307,3 +310,21 @@ class TemplateTagTest(TestCase):
         '''
         response = self.client.get(reverse('home'))
         self.assertFalse(self.link in response.content)
+
+
+class ModelCountTest(TestCase):
+
+        def test_command(self):
+            '''
+            Check command has right output
+            '''
+            # prepare output
+            out = StringIO()
+
+            # call command
+            call_command('modelcount', stdout=out)
+
+            result = out.getvalue()
+            self.assertIn('SavedRequest has 0 objects', result)
+            self.assertIn('User has 1 objects', result)
+            self.assertIn('Contact has 1 objects', result)
