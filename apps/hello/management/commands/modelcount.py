@@ -12,6 +12,5 @@ class Command(BaseCommand):
             self.stdout.write('Model %s has %d objects'
                               % (mod.__name__, mod.objects.count()))
 
-        for mod in models_list:
             self.stderr.write('error: %s %d'
                               % (mod.__name__, mod.objects.count()))

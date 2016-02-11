@@ -12,7 +12,7 @@ def log_edit(sender, **kwargs):
     models_log.model_name = sender.__name__
     models_log.date = timezone.now()
 
-    if sender.__name__ == 'SavedRequest' or sender.__name__ == 'Contact':
+    if sender.__name__ != 'ModelsLog':
         if kwargs['created']:
             models_log.action = "created"
             models_log.save()
@@ -27,6 +27,6 @@ def log_delete(sender, **kwargs):
     models_log.model_name = sender.__name__
     models_log.date = timezone.now()
 
-    if sender.__name__ == 'SavedRequest' or sender.__name__ == 'Contact':
+    if sender.__name__ != 'ModelsLog':
         models_log.action = "deleted"
         models_log.save()
