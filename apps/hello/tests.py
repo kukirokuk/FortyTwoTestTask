@@ -9,7 +9,7 @@ from django.utils.six import StringIO
 
 
 from apps.hello.views import home
-from apps.hello.models import Contact
+from apps.hello.models import Contact, ModelsLog
 from apps.hello.forms import ContactForm
 
 
@@ -314,17 +314,43 @@ class TemplateTagTest(TestCase):
 
 class ModelCountTest(TestCase):
 
-        def test_command(self):
-            '''
-            Check command has right output
-            '''
-            # prepare output
-            out = StringIO()
+    def test_command(self):
+        '''
+        Check command has right output
+        '''
+        # prepare output
+        out = StringIO()
 
-            # call command
-            call_command('modelcount', stdout=out)
+        # call command
+        call_command('modelcount', stdout=out)
 
-            result = out.getvalue()
-            self.assertIn('SavedRequest has 0 objects', result)
-            self.assertIn('User has 1 objects', result)
-            self.assertIn('Contact has 1 objects', result)
+        result = out.getvalue()
+        self.assertIn('SavedRequest has 0 objects', result)
+        self.assertIn('User has 1 objects', result)
+        self.assertIn('Contact has 1 objects', result)
+
+
+class SignalModelChangeTest(TestCase):
+
+    def test_signal(self):
+        '''
+        Check signal store all objects changes to db
+        '''
+        Contact.objects.all().delete()
+        ModelsLog.objects.all().delete()
+
+        # test signal when db entry was created
+        person = Contact.objects.create(name="Vinnie", last_name="Jones")
+        signal = ModelsLog.objects.first()
+        self.assertEqual(signal.action, 'created')
+
+        # test signal when db entry was updated
+        person.name = 'Freddie'
+        person.save()
+        signal = ModelsLog.objects.all()[1]
+        self.assertEqual(signal.action, 'updated')
+
+        # test signal when db entry was deleted
+        Contact.objects.all().delete()
+        signal = ModelsLog.objects.all()[2]
+        self.assertEqual(signal.action, 'deleted')

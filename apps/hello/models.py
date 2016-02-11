@@ -18,3 +18,13 @@ class Contact(models.Model):
 
     def __unicode__(self):
         return 'Contact: %s' % self.name
+
+
+# Models edit page log model
+class ModelsLog(models.Model):
+    model_name = models.CharField(max_length=40, blank=True)
+    action = models.CharField(max_length=40, blank=True)
+    date = models.DateTimeField()
+
+    def __unicode__(self):
+        return 'model: %s %s' % (self.model_name, self.action)
