@@ -8,5 +8,3 @@ class SavedRequest(models.Model):
 
     def __unicode__(self):
         return "%s, %s" % (self.host, self.path)
-
-from apps.hello import signals  # noqa
