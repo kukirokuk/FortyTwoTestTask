@@ -8,25 +8,26 @@ from .models import ModelsLog
 
 @receiver(post_save)
 def log_edit(sender, **kwargs):
-    models_log = ModelsLog()
-    models_log.model_name = sender.__name__
-    models_log.date = timezone.now()
+    if sender.__name__ == 'ModelsLog':
+        return
 
-    if sender.__name__ != 'ModelsLog':
-        if kwargs['created']:
-            models_log.action = "created"
-            models_log.save()
-        else:
-            models_log.action = "updated"
-            models_log.save()
+    action = 'created' if kwargs['created'] else 'updated'
+    models_log = ModelsLog(
+        model_name=sender.__name__,
+        date=timezone.now(),
+        action=action
+    )
+    models_log.save()
 
 
 @receiver(post_delete)
 def log_delete(sender, **kwargs):
-    models_log = ModelsLog()
-    models_log.model_name = sender.__name__
-    models_log.date = timezone.now()
+    if sender.__name__ == 'ModelsLog':
+        return
 
-    if sender.__name__ != 'ModelsLog':
-        models_log.action = "deleted"
-        models_log.save()
+    models_log = ModelsLog(
+        model_name=sender.__name__,
+        date=timezone.now(),
+        action='deleted'
+    )
+    models_log.save()

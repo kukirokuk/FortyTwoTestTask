@@ -298,11 +298,13 @@ class TemplateTagTest(TestCase):
 
     def test_no_db_enries(self):
         '''
-        Check there is no errors if db is empty
+        Check there is no errors if context is not a model
         '''
-        Contact.objects.all().delete()
-        response = self.client.get(reverse('home'))
-        self.assertEqual(response.status_code, 200)
+        context = ['string', 32, None]
+        for i in context:
+            rendered = self.template.render(Context({'info': i}))
+            self.assertEqual('Just model should be passed to the templatag',
+                             rendered)
 
     def test_for_anonymous_user(self):
         '''

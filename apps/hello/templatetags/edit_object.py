@@ -1,13 +1,36 @@
 from django import template
 from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.models import ContentType
+from django.db import models
 
 
 register = template.Library()
 
 
-@register.simple_tag
-def edit_link(object):
-    item = ContentType.objects.get_for_model(object.__class__)
+def link(obj):
     return reverse('admin:%s_%s_change'
-                   % (item.app_label, item.name), args=(object.id,))
+                   % (obj._meta.app_label, obj._meta.module_name),
+                   args=[obj.id])
+
+
+class AdminEditNode(template.Node):
+    def __init__(self, object):
+        self.object = template.Variable(object)
+
+    def render(self, context):
+        resolved = self.object.resolve(context)
+        if not isinstance(resolved, models.Model):
+            return 'Just model should be passed to the templatag'
+        return link(resolved)
+
+
+def edit_link(parser, token):
+    try:
+        # split content
+        tag_name, info = token.split_contents()
+
+    except ValueError:
+        raise template.TemplateSyntaxError(
+            '%r tag requires one model argument' % token.contents.split()[0])
+    return AdminEditNode(info)
+
+register.tag('edit_link', edit_link)
