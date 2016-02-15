@@ -40,3 +40,25 @@ class RequestPageTest(TestCase):
         # check if last requests appear at the page
         for t_request in test_requests:
             self.assertIn(t_request, request.context['requests'])
+
+    def test_with_priority_request(self):
+        '''
+        Check page shows up requests sorted by priority
+        '''
+        # making names for requests
+        requests = ['request'+str(i) for i in range(10)]
+
+        # iterate over different priorities
+        for pr in range(1,3):
+            # creating 10 new requests with priority
+            for request in requests:
+                request = SavedRequest(priority=pr)
+                request.save()
+
+            tr = list(SavedRequest.objects.filter(priority=pr).order_by('-id'))
+            test_requests = tr[:10]
+            response = self.client.get(reverse('requests')+"?order_by="
+                                        +str(pr))
+            # check if last requests with specified priority appear at the page
+            for t_request in test_requests:
+                self.assertIn(t_request, response.context['requests'])

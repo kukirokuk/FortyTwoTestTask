@@ -16,7 +16,11 @@
                 <th>host</th>
                 <th>path</th>
                 <th>method</th>
-
+                <th>priority
+                <a href="{% url "requests" %}?order_by=1">1</a>
+                <a href="{% url "requests" %}?order_by=2">2</a>
+                <a href="{% url "requests" %}?order_by=3">3</a>
+                </th>
             </tr>  
         </thead>  
         <tbody> 
@@ -26,6 +30,7 @@
                 <td>{{item.host}}</td>
                 <td>{{item.path}}</td>
                 <td>{{item.method}}</td>
+                <td>{{item.priority}}</td>
             </tr>
         {%endfor%}
         </tbody>  
