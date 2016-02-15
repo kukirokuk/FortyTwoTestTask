@@ -13,3 +13,12 @@ class RequestMiddleware(object):
         new_request.host = request.get_host()
         new_request.method = request.method
         new_request.save()
+
+        # for example how other priorities can be assigned
+        if 'edit' in request.path:
+            new_request.priority = 2
+        elif 'login' in request.path:
+            new_request.priority = 3
+        elif 'order_by' in request.GET:
+            new_request.priority = 0
+        new_request.save()
