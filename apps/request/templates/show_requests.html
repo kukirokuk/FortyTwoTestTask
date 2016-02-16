@@ -16,7 +16,12 @@
                 <th>host</th>
                 <th>path</th>
                 <th>method</th>
-                <th>priority
+                <th>
+                    <a href="{% url "requests" %}?order_by=all {% if request.GET.order_by == 'all' and request.GET.reverse != '1' %}&amp;reverse=1{% endif %}">
+                    priority</a>
+                    {% if 'all' in request.GET.order_by and request.GET.reverse != '1' %} &uarr;
+                    {% elif 'all' in request.GET.order_by and request.GET.reverse == '1' %} &darr;
+                    {% endif %}
                 <a href="{% url "requests" %}?order_by=1">1</a>
                 <a href="{% url "requests" %}?order_by=2">2</a>
                 <a href="{% url "requests" %}?order_by=3">3</a>
