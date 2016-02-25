@@ -1,4 +1,5 @@
 from apps.request.models import SavedRequest
+from django.core.urlresolvers import reverse
 
 
 class RequestMiddleware(object):
@@ -6,7 +7,7 @@ class RequestMiddleware(object):
 
     def process_request(self, request):
         # store requests if they are not ajax
-        if request.is_ajax():
+        if request.path == reverse('requests'):
             return
         new_request = SavedRequest()
         new_request.path = request.get_full_path()

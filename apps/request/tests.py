@@ -19,7 +19,8 @@ class RequestPageTest(TestCase):
         # check responce status
         self.assertEqual(response.status_code, 200)
 
-        # check model
+        response = self.client.get(reverse('home'))
+
         req = SavedRequest.objects.get(path=response.request["PATH_INFO"])
 
         # check model instance rendered

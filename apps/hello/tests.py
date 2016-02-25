@@ -338,7 +338,7 @@ class SignalModelChangeTest(TestCase):
         '''
         Check signal store all objects changes to db
         '''
-        
+
         ModelsLog.objects.all().delete()
         Contact.objects.all().delete()
 
