@@ -8,6 +8,7 @@ from .models import ModelsLog
 
 @receiver(post_save)
 def log_edit(sender, **kwargs):
+
     if sender.__name__ == 'ModelsLog':
         return
 
@@ -15,15 +16,12 @@ def log_edit(sender, **kwargs):
     models_log = ModelsLog(
         model_name=sender.__name__,
         date=timezone.now(),
-        action=action
-    )
+        action=action)
     models_log.save()
 
 
 @receiver(post_delete)
 def log_delete(sender, **kwargs):
-    if sender.__name__ == 'ModelsLog':
-        return
 
     models_log = ModelsLog(
         model_name=sender.__name__,

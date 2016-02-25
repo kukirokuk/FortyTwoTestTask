@@ -338,21 +338,27 @@ class SignalModelChangeTest(TestCase):
         '''
         Check signal store all objects changes to db
         '''
-        Contact.objects.all().delete()
+        
         ModelsLog.objects.all().delete()
+        Contact.objects.all().delete()
 
         # test signal when db entry was created
         person = Contact.objects.create(name="Vinnie", last_name="Jones")
-        signal = ModelsLog.objects.first()
-        self.assertEqual(signal.action, 'created')
+        signal = ModelsLog.objects.all().order_by('-id')
+        self.assertEqual(signal[0].action, 'created')
 
         # test signal when db entry was updated
         person.name = 'Freddie'
         person.save()
-        signal = ModelsLog.objects.all()[1]
-        self.assertEqual(signal.action, 'updated')
+        signal = ModelsLog.objects.all().order_by('-id')
+        self.assertEqual(signal[0].action, 'updated')
 
         # test signal when db entry was deleted
         Contact.objects.all().delete()
-        signal = ModelsLog.objects.all()[2]
-        self.assertEqual(signal.action, 'deleted')
+        signal = ModelsLog.objects.all().order_by('-id')
+        self.assertEqual(signal[0].action, 'deleted')
+
+        # test signal when ModelsLog entry was deleted
+        ModelsLog.objects.all()[0].delete
+        signal = ModelsLog.objects.all().order_by('-id')
+        self.assertEqual(signal[0].action, 'deleted')
