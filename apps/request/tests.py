@@ -63,3 +63,13 @@ class RequestPageTest(TestCase):
             # check if last requests with specified priority appear at the page
             for t_request in test_requests:
                 self.assertIn(t_request, response.context['requests'])
+
+    def test_middleware_not_saving_requests(self):
+        '''
+        Check that requests does not save if they are from requests list page
+        '''
+        self.client.get(reverse('requests'))
+        saved_requests = SavedRequest.objects.all()
+
+        # check that db is empty after request
+        self.assertEqual(len(saved_requests), 0)
