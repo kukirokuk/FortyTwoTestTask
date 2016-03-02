@@ -6,8 +6,11 @@ class RequestMiddleware(object):
     """Save request to the db"""
 
     def process_request(self, request):
-        # store requests if they are not ajax
-        if request.path == reverse('requests'):
+
+        # does not store ajax POST requests and requests from list page
+        if request.is_ajax() and request.method == "GET":
+            return
+        elif request.path == reverse('requests'):
             return
         new_request = SavedRequest()
         new_request.path = request.get_full_path()
@@ -16,7 +19,7 @@ class RequestMiddleware(object):
         new_request.save()
 
         # for example how other priorities can be assigned
-        if 'edit' in request.path:
+        if 'admin' in request.path:
             new_request.priority = 2
         elif 'login' in request.path:
             new_request.priority = 3
